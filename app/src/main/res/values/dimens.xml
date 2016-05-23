@@ -10,6 +10,7 @@
     <dimen name="small">8dp</dimen>
     <dimen name="very_small">4dp</dimen>
     <dimen name="profile_icon_size">40dp</dimen>
+    <dimen name="profile_icon_detail_size">72dp</dimen>
 
 
     <dimen name="font_extra_large">24sp</dimen>

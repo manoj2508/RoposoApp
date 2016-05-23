@@ -2,4 +2,6 @@
     <string name="app_name">RoposoApp</string>
     <string name="comment_count">%1$s comments</string>
     <string name="likes_count">%1$s likes</string>
+    <string name="followers_count">%1$s followers</string>
+    <string name="following_count">%1$s following</string>
 </resources>

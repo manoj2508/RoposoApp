@@ -21,11 +21,14 @@ public class StoryRecyclerAdapter extends RecyclerView.Adapter<StoryRecyclerAdap
 
     private Context context;
     private List<StoryData> storyDataList;
+    private IRecycerItemSelected callback;
 
-    public StoryRecyclerAdapter(Context context, List<StoryData> storyDataList) {
+    public StoryRecyclerAdapter(Context context, List<StoryData> storyDataList, IRecycerItemSelected callback) {
         this.context = context;
         this.storyDataList = storyDataList;
+        this.callback = callback;
     }
+
 
     @Override
     public StoryRecyclerAdapter.StoryHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -46,7 +49,7 @@ public class StoryRecyclerAdapter extends RecyclerView.Adapter<StoryRecyclerAdap
         holder.likeCountTextView.setText(context.getString(R.string.likes_count, storyData.getLikes_count()));
 
         holder.nameTextView.setText(userData.getUsername());
-        holder.userTagTextView.setText(userData.getHandle());
+        holder.userTagTextView.setText(storyData.getVerb());
         Picasso.with(context).load(userData.getImage()).into(holder.profileImageView);
     }
 
@@ -55,7 +58,7 @@ public class StoryRecyclerAdapter extends RecyclerView.Adapter<StoryRecyclerAdap
         return storyDataList.size();
     }
 
-    public class StoryHolder extends RecyclerView.ViewHolder {
+    public class StoryHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private TextView nameTextView, userTagTextView;
         private ImageView profileImageView;
@@ -76,6 +79,19 @@ public class StoryRecyclerAdapter extends RecyclerView.Adapter<StoryRecyclerAdap
             storyImageView = (ImageView) itemView.findViewById(R.id.story_image_view);
             likeCountTextView = (TextView) itemView.findViewById(R.id.likes_count);
             commentCountTextView = (TextView) itemView.findViewById(R.id.comment_count);
+
+            itemView.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View v) {
+            if (callback != null) {
+                callback.onItemClicked(storyDataList.get(getAdapterPosition()));
+            }
+        }
+    }
+
+    interface IRecycerItemSelected {
+        void onItemClicked(StoryData storyData);
     }
 }

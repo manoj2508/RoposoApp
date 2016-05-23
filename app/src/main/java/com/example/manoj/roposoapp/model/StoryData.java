@@ -1,9 +1,11 @@
 package com.example.manoj.roposoapp.model;
 
+import java.io.Serializable;
+
 /**
  * Created by manoj on 23/05/16.
  */
-public class StoryData extends BaseDataTypeModel {
+public class StoryData extends BaseDataTypeModel implements Serializable {
 
     public static final String TYPE = CardDataType.USER.getType();
 
@@ -49,6 +51,9 @@ public class StoryData extends BaseDataTypeModel {
     }
 
     public String getVerb() {
+        if (verb != null) {
+            return verb.replace("created this story on ", "");
+        }
         return verb;
     }
 
