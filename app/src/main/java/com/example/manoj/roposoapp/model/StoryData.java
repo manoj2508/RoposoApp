@@ -5,6 +5,8 @@ package com.example.manoj.roposoapp.model;
  */
 public class StoryData extends BaseDataTypeModel {
 
+    public static final String TYPE = CardDataType.USER.getType();
+
     private String id;
     private String db;
     private int comment_count;
@@ -63,7 +65,12 @@ public class StoryData extends BaseDataTypeModel {
     }
 
     @Override
-    CardDataType getCardType() {
+    public CardDataType getCardType() {
         return CardDataType.STORY;
+    }
+
+    @Override
+    public String getDataType() {
+        return TYPE;
     }
 }

@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.manoj.roposoapp.model.StoryData;
+import com.example.manoj.roposoapp.model.UserData;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -35,7 +37,17 @@ public class StoryRecyclerAdapter extends RecyclerView.Adapter<StoryRecyclerAdap
 
     @Override
     public void onBindViewHolder(StoryRecyclerAdapter.StoryHolder holder, int position) {
+        StoryData storyData = storyDataList.get(position);
+        UserData userData = DataStore.getInstance().getUserData(storyData.getDb());
 
+        Picasso.with(context).load(storyData.getSi()).into(holder.storyImageView);
+        holder.eventTitleTextView.setText(storyData.getTitle());
+        holder.commentCountTextView.setText(context.getString(R.string.comment_count, storyData.getComment_count()));
+        holder.likeCountTextView.setText(context.getString(R.string.likes_count, storyData.getLikes_count()));
+
+        holder.nameTextView.setText(userData.getUsername());
+        holder.userTagTextView.setText(userData.getHandle());
+        Picasso.with(context).load(userData.getImage()).into(holder.profileImageView);
     }
 
     @Override

@@ -1,9 +1,14 @@
 package com.example.manoj.roposoapp.model;
 
+import com.example.manoj.roposoapp.utils.DataParserTemplateAdapter;
+import com.example.manoj.roposoapp.utils.DataTypeProvider;
+import com.google.gson.annotations.JsonAdapter;
+
 /**
  * Created by manoj on 23/05/16.
  */
-public abstract class BaseDataTypeModel {
+@JsonAdapter(DataParserTemplateAdapter.class)
+public abstract class BaseDataTypeModel implements DataTypeProvider {
 
-    abstract CardDataType getCardType();
+    public abstract CardDataType getCardType();
 }
