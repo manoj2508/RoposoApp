@@ -6,7 +6,9 @@ import com.example.manoj.roposoapp.model.StoryData;
 import com.example.manoj.roposoapp.model.UserData;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by manoj on 24/05/16.
@@ -14,11 +16,11 @@ import java.util.List;
 public class DataStore {
 
     private static DataStore instance;
-    private List<UserData> userDataList;
+    private Map<String, UserData> userDataMap;
     private List<StoryData> storyDataList;
 
     public DataStore() {
-        userDataList = new ArrayList<>();
+        userDataMap = new HashMap<>();
         storyDataList = new ArrayList<>();
     }
 
@@ -32,25 +34,35 @@ public class DataStore {
     public void updateDataSet(List<BaseDataTypeModel> baseDataTypeModels) {
         for (BaseDataTypeModel data : baseDataTypeModels) {
             if (data.getCardType() == CardDataType.USER) {
-                userDataList.add((UserData) data);
+                UserData userData = (UserData) data;
+                userDataMap.put(userData.getId(), userData);
             } else if (data.getCardType() == CardDataType.STORY) {
                 storyDataList.add((StoryData) data);
             }
         }
-    }
 
-    public List<UserData> getUserDataList() {
-        return userDataList;
+        for (BaseDataTypeModel data : baseDataTypeModels) {
+            if (data.getCardType() == CardDataType.USER) {
+                UserData userData = (UserData) data;
+                userDataMap.put(userData.getId(), userData);
+            } else if (data.getCardType() == CardDataType.STORY) {
+                storyDataList.add((StoryData) data);
+            }
+        }
+
+        for (StoryData storyData : storyDataList) {
+            storyData.setUserData(userDataMap.get(storyData.getDb()));
+        }
     }
 
     public List<StoryData> getStoryDataList() {
         return storyDataList;
     }
 
-    public UserData getUserData(String id) {
-        for (UserData userData : userDataList) {
-            if (id.equalsIgnoreCase(userData.getId())) {
-                return userData;
+    public StoryData getStory(String id) {
+        for (StoryData storyData : storyDataList) {
+            if (storyData.getId().equalsIgnoreCase(id)) {
+                return storyData;
             }
         }
         return null;

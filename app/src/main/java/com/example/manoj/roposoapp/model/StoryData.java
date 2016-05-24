@@ -21,6 +21,8 @@ public class StoryData extends BaseDataTypeModel implements Serializable {
     private String url;
     private String si;
 
+    private UserData userData;
+
 
     public String getId() {
         return id;
@@ -30,15 +32,15 @@ public class StoryData extends BaseDataTypeModel implements Serializable {
         return db;
     }
 
-    public int getComment_count() {
+    public int getCommentCount() {
         return comment_count;
     }
 
-    public int getLikes_count() {
+    public int getLikesCount() {
         return likes_count;
     }
 
-    public boolean isLike_flag() {
+    public boolean isLikeFlag() {
         return like_flag;
     }
 
@@ -69,6 +71,14 @@ public class StoryData extends BaseDataTypeModel implements Serializable {
         return si;
     }
 
+    public UserData getUserData() {
+        return userData;
+    }
+
+    public void setUserData(UserData userData) {
+        this.userData = userData;
+    }
+
     @Override
     public CardDataType getCardType() {
         return CardDataType.STORY;
@@ -77,5 +87,15 @@ public class StoryData extends BaseDataTypeModel implements Serializable {
     @Override
     public String getDataType() {
         return TYPE;
+    }
+
+
+    public void setLikeState(boolean likeState) {
+        if (likeState && !like_flag) {
+            likes_count++;
+        } else if (!likeState && like_flag) {
+            likes_count--;
+        }
+        this.like_flag = likeState;
     }
 }

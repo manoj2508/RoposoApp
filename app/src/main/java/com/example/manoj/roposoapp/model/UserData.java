@@ -1,9 +1,11 @@
 package com.example.manoj.roposoapp.model;
 
+import java.io.Serializable;
+
 /**
  * Created by manoj on 23/05/16.
  */
-public class UserData extends BaseDataTypeModel {
+public class UserData extends BaseDataTypeModel implements Serializable {
 
     public static final String TYPE = CardDataType.USER.getType();
 
@@ -47,8 +49,12 @@ public class UserData extends BaseDataTypeModel {
         return followers;
     }
 
-    public boolean is_following() {
+    public boolean isFollowing() {
         return is_following;
+    }
+
+    public void setIsFollowing(boolean isFollowing) {
+        this.is_following = isFollowing;
     }
 
     public String getType() {
@@ -67,5 +73,14 @@ public class UserData extends BaseDataTypeModel {
     @Override
     public String getDataType() {
         return TYPE;
+    }
+
+    public void toggleFollowingState() {
+        is_following = !is_following;
+        if (is_following) {
+            followers++;
+        } else {
+            followers--;
+        }
     }
 }

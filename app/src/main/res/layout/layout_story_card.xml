@@ -55,14 +55,19 @@
                     android:textSize="@dimen/font_medium" />
             </LinearLayout>
 
-            <ImageView
+            <CheckedTextView
                 android:id="@+id/follow_btn"
-                android:layout_width="@dimen/dimen_40dp"
-                android:layout_height="@dimen/dimen_40dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:padding="@dimen/small"
-                android:src="@android:color/black" />
+                android:background="@drawable/follow_btn_selector"
+                android:paddingBottom="@dimen/small"
+                android:paddingLeft="@dimen/normal"
+                android:paddingRight="@dimen/normal"
+                android:paddingTop="@dimen/small"
+                android:text="follow"
+                android:textColor="@drawable/follow_text_color_selector" />
         </LinearLayout>
 
         <TextView
@@ -90,10 +95,12 @@
             android:layout_marginTop="@dimen/small"
             android:gravity="center_vertical">
 
-            <ImageView
+            <CheckBox
+                android:id="@+id/like_btn"
                 android:layout_width="@dimen/extra_large"
                 android:layout_height="@dimen/extra_large"
-                android:background="@color/black_6pc" />
+                android:background="@drawable/checkbox_selector"
+                android:button="@null" />
 
             <TextView
                 android:id="@+id/likes_count"
